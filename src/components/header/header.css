@@ -49,3 +49,21 @@ header{
     overflow: hidden;
     padding: 5rem 1.5rem 1.5rem 1.5rem;
 }
+
+@media screen and (max-width: 1024px) {
+    header{
+        height: 68vh;
+    }
+    
+}
+
+@media screen and (max-width: 600px) {
+    header{
+        height: 100vh;
+    }
+    .header__socials, 
+    .header__down{
+        display: none;
+    }
+    
+}
