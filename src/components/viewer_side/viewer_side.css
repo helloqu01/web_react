@@ -1,0 +1,55 @@
+.bar-container{
+    display: flex;
+    flex-direction: column;
+    margin: 50px;
+}
+.bar-container div{
+    width: 53px;
+    background: #a1a1a1;
+    text-align: center;
+    padding: 10px;
+    border-radius: 15px;
+    margin-top: 10px;
+}
+
+.bar-container div:hover{
+    background: #555555;
+}
+
+.bar-container div.active{
+    background: #555555;
+}
+
+.l_container{
+    z-index: 2;
+    padding-top: 70px;
+    
+}
+
+.r_container{
+    z-index: 2;
+    padding-top: 73px;
+    background: #c4c4c4;
+    width: 16%;
+}
+.side-container{
+    background: #f0f0f0;
+    padding: 1rem;
+    margin: 0.6rem;
+    border-radius: 0.5rem;
+
+}
+.data_name{
+    color: black;
+    font-weight: bold;
+}
+
+.bar{
+    display: grid;
+    grid-template-columns: 1fr 10fr;
+}
+           
+.container{
+    display: flex;
+    justify-content: space-between;
+}
