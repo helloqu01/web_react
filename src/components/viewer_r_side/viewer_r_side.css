@@ -1,0 +1,23 @@
+.r_container{
+    z-index: 2;
+    padding-top: 73px;
+    background: #c4c4c4;
+    width: 16%;
+}
+.side-container{
+    background: #f0f0f0;
+    padding: 1rem;
+    margin: 0.6rem;
+    border-radius: 0.5rem;
+
+}
+.data_name{
+    color: black;
+    font-weight: bold;
+}
+
+.bar{
+    display: grid;
+    grid-template-columns: 1fr 10fr;
+}
+           

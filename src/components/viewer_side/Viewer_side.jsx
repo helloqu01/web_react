@@ -17,10 +17,11 @@ import { useEffect} from 'react';
 import Ply from '../ply/ply'
 const Viewer_side = () => {
 
-  const [viewContent, setViewContent] = useState(null);
+  const [viewContent, setViewContent] = useState([]);
 
   useEffect(()=>{
     Axios.get('http://localhost:3001/api/get').then((Response)=>{
+      
       setViewContent(Response.data);
       console.log(Response.data)
      
@@ -103,17 +104,17 @@ const Viewer_side = () => {
               <div onClick={color} className={activeNav === '#color' ? 'active' : ''} ><i> <img src={Info}></img></i></div>
           </div>
 
-         <div className="test">
+       
          <Ply num={num} op_num={op_num} controls_type={controls_type} rotate_type={rotate_type}/>
 
-         </div>
+        
          
         
       </div>
 
       <div className='r_container'>
         <div className='side-container'>
-            <div className='data_name'>3D 데이터</div>
+            <div className='data_name'>3D 데이터{viewContent[0]?.name}</div>
             <div className="bar">
               <button className='eye' onClick={toggleImg}><i><img id="img" src={eye}></img></i></button>
               <input id="range" type="range" min="1" max="10" onClick={SetValue}/>

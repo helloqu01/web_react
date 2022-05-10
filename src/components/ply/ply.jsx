@@ -1,10 +1,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-
 import { DragControls } from 'three/examples/jsm/controls/DragControls'
 import { TransformControls } from 'three/examples/jsm/controls/TransformControls'
-
-
 import { PLYLoader } from "three/examples/jsm/loaders/PLYLoader";
 import './ply.css'
 
@@ -20,13 +17,13 @@ function Ply({num, op_num, controls_type,rotate_type}) {
     function init() {
    
       camera = new THREE.PerspectiveCamera(
-        100,
+        90,
         window.innerWidth / window.innerHeight,
         0.1,
         10000
       );
 
-      camera.position.set(50, 50, 50);
+      camera.position.set(75, 20, 0);
       scene = new THREE.Scene();
       scene.background = new THREE.Color(0xffffff);
 
@@ -72,6 +69,7 @@ function Ply({num, op_num, controls_type,rotate_type}) {
           })
           // tcontrols.attach(mesh)
           scene.add(tcontrols)
+          
           tcontrols.setMode('rotate');//회전
          
         }else{
@@ -86,7 +84,7 @@ function Ply({num, op_num, controls_type,rotate_type}) {
       });
       
       // Lights
-      scene.add(new THREE.HemisphereLight(0xffffff, 0x111122));
+      // scene.add(new THREE.HemisphereLight(0xffffff, 0x111122));
       // renderer
       renderer = new THREE.WebGLRenderer({ antialias: true });
       renderer.setPixelRatio(window.devicePixelRatio);
