@@ -6,30 +6,28 @@ import zoom_In from '../../icon/zoom_In.png';
 import research from '../../icon/research.png';
 import Info from '../../icon/Info.png';
 import {useState} from 'react'
-
-
+import domtoimage from 'dom-to-image';
+import { saveAs } from 'file-saver';
 import eye from '../../icon/Eye.png'
 import EyeSlash from '../../icon/EyeSlash.png'
 import Axios from 'axios';
 import { useEffect} from 'react';
-
-
 import Ply from '../ply/ply'
+
+
 const Viewer_side = () => {
 
   const [viewContent, setViewContent] = useState([]);
 
   useEffect(()=>{
     Axios.get('http://localhost:3001/api/get').then((Response)=>{
-      
       setViewContent(Response.data);
       console.log(Response.data)
-     
     })
-
-    
   }, [])
   
+
+
   const [activeNav, setActiveNav] = useState('#')
   
   const [num, setNum] = useState(true)
@@ -65,10 +63,13 @@ const Viewer_side = () => {
       if(num == false){
         setActiveNav('#color');
         setNum(true);
+        
       }else{
         setActiveNav('#color');
         setNum(false);
+        
       };
+      
   }
 
   function toggleImg() {
@@ -90,6 +91,16 @@ const Viewer_side = () => {
   }
 
 
+  const onDownloadBtn = () => {
+    // dom-to-image
+    domtoimage
+      .toBlob(document.querySelector('body'))
+      .then((blob) => {
+        // FileSaver
+        saveAs(blob, 'card.png');
+      });
+  };
+
 
   return (
 
@@ -104,10 +115,14 @@ const Viewer_side = () => {
               <div onClick={color} className={activeNav === '#color' ? 'active' : ''} ><i> <img src={Info}></img></i></div>
           </div>
 
-       
+        
          <Ply num={num} op_num={op_num} controls_type={controls_type} rotate_type={rotate_type}/>
 
-        
+     
+
+
+
+    
          
         
       </div>
@@ -121,7 +136,7 @@ const Viewer_side = () => {
             </div>
            
         </div>
-        
+        <button onClick={onDownloadBtn} id="exportBtn">내보내기</button>
     </div>
 
     </div>

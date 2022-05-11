@@ -4,17 +4,30 @@ import { DragControls } from 'three/examples/jsm/controls/DragControls'
 import { TransformControls } from 'three/examples/jsm/controls/TransformControls'
 import { PLYLoader } from "three/examples/jsm/loaders/PLYLoader";
 import './ply.css'
+import { useRef } from 'react';
 
 function Ply({num, op_num, controls_type,rotate_type}) {
-    
+
+  const personInfo = useRef();
     var camera, scene, renderer, tcontrols;
    
+  //   window.onload = () => {
+  //     init();
+  //     animate();
+  // }
 
-
+  // document.addEventListener("DOMContentLoaded", () => {
+  //   init();
+  //   animate();
+  //     });
+  // window.addEventListener('load', function() {
+  //   init();
+  //   animate();
+  // });
     init();
     animate();
 
-    function init() {
+     function init() {
    
       camera = new THREE.PerspectiveCamera(
         90,
@@ -44,11 +57,11 @@ function Ply({num, op_num, controls_type,rotate_type}) {
           clearcoat: 1.0,
           clearcoatRoughness: 0.25
       })
-
+        console.log(num);
         var mesh = new THREE.Mesh(geometry, material);
         mesh.rotateX(-Math.PI / 2)
         scene.add(mesh)
-
+       
         if(controls_type == false){
           let controls = new DragControls( [mesh], camera, renderer.domElement );
           controls.addEventListener( 'dragstart', function ( event ) {
@@ -60,7 +73,6 @@ function Ply({num, op_num, controls_type,rotate_type}) {
         }else{
 
         }
-
 
         if(rotate_type == "0"){
           tcontrols = new TransformControls(camera, renderer.domElement)
@@ -75,36 +87,45 @@ function Ply({num, op_num, controls_type,rotate_type}) {
         }else{
 
         }
-
-
-   
-        
-   
-       
       });
       
-      // Lights
       // scene.add(new THREE.HemisphereLight(0xffffff, 0x111122));
       // renderer
       renderer = new THREE.WebGLRenderer({ antialias: true });
+      //renderer
+      // renderer = new THREE.WebGLRenderer( { canvas: canvas1Ref } );
       renderer.setPixelRatio(window.devicePixelRatio);
       renderer.setSize(window.innerWidth, window.innerHeight);
-      document.body.appendChild(renderer.domElement);
-
      
-    
-    
- 
+      // document.addEventListener("DOMContentLoaded", () => {
+       
+      // });
+     
+      var canvas1Ref =personInfo.current;
+      
+      setTimeout(() =>   
+      canvas1Ref.appendChild(renderer.domElement), 3000);
+  
       let control = new OrbitControls(camera, renderer.domElement);
-
+      control.enableDamping = true
     
     }
     
     function animate() {
       requestAnimationFrame(animate);
       renderer.render(scene, camera);
+      
     }
 
+    return (
+      <>
+          <div className="box" id="bar1" ref={personInfo}> {/*div.box 요소에 ref 부여함*/}
+              <p>테스트 영역 </p>
+              
+          </div>
+         
+      </>
+  );
 
   }
   
