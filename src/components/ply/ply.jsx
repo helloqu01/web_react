@@ -77,6 +77,7 @@ function Ply({num, op_num, controls_type,rotate_type}) {
         if(rotate_type == "0"){
           tcontrols = new TransformControls(camera, renderer.domElement)
           window.addEventListener('dragging-changed', function (event) {
+            
             control.enabled = !event.value
           })
           // tcontrols.attach(mesh)
@@ -91,12 +92,12 @@ function Ply({num, op_num, controls_type,rotate_type}) {
       
       // scene.add(new THREE.HemisphereLight(0xffffff, 0x111122));
       // renderer
-      renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
       //renderer
       // renderer = new THREE.WebGLRenderer( { canvas: canvas1Ref } );
       renderer.setPixelRatio(window.devicePixelRatio);
       renderer.setSize(window.innerWidth, window.innerHeight);
-     
+      
       // document.addEventListener("DOMContentLoaded", () => {
        
       // });
@@ -105,6 +106,11 @@ function Ply({num, op_num, controls_type,rotate_type}) {
       
       setTimeout(() =>   
       canvas1Ref.appendChild(renderer.domElement), 3000);
+
+
+      // setTimeout(() =>   
+      // canvas1Ref.removeChild(renderer.domElement), 3000);
+
   
       let control = new OrbitControls(camera, renderer.domElement);
       control.enableDamping = true
@@ -120,7 +126,7 @@ function Ply({num, op_num, controls_type,rotate_type}) {
     return (
       <>
           <div className="box" id="bar1" ref={personInfo}> {/*div.box 요소에 ref 부여함*/}
-              <p>테스트 영역 </p>
+           
               
           </div>
          

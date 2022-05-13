@@ -14,7 +14,7 @@ import Axios from 'axios';
 import { useEffect} from 'react';
 import Ply from '../ply/ply'
 
-
+import html2canvas from 'html2canvas'
 const Viewer_side = () => {
 
   const [viewContent, setViewContent] = useState([]);
@@ -68,6 +68,7 @@ const Viewer_side = () => {
         setActiveNav('#color');
         setNum(false);
         
+        
       };
       
   }
@@ -93,12 +94,18 @@ const Viewer_side = () => {
 
   const onDownloadBtn = () => {
     // dom-to-image
-    domtoimage
-      .toBlob(document.querySelector('body'))
-      .then((blob) => {
-        // FileSaver
-        saveAs(blob, 'card.png');
+    // domtoimage
+    //   .toBlob(document.querySelector('body'))
+    //   .then((blob) => {
+    //     // FileSaver
+    //     saveAs(blob, 'card.png');
+    //   });
+    
+    html2canvas(document.querySelector("body")).then(canvas => {
+      saveAs(canvas.toDataURL('image/png'),"capture-test.png");
       });
+      
+      
   };
 
 
@@ -118,6 +125,7 @@ const Viewer_side = () => {
         
          <Ply num={num} op_num={op_num} controls_type={controls_type} rotate_type={rotate_type}/>
 
+     
      
 
 
