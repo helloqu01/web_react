@@ -13,10 +13,13 @@ import EyeSlash from '../../icon/EyeSlash.png'
 import Axios from 'axios';
 import { useEffect} from 'react';
 import Ply from '../ply/ply'
-
+import ThreeScene from '../ply/ThreeScene'
+import { useRef } from 'react';
 import html2canvas from 'html2canvas'
+import { Chart } from 'chart.js';
+import zoomPlugin from 'chartjs-plugin-zoom';
 const Viewer_side = () => {
-
+  const personInfo2 = useRef();
   const [viewContent, setViewContent] = useState([]);
 
   useEffect(()=>{
@@ -111,7 +114,7 @@ const Viewer_side = () => {
 
   return (
 
-    <div className='container'>
+    <div className='container'id="container">
       <div className="l_container">
           <div className='bar-container'>
               <div onClick={set_controls_type} className={activeNav === '#arrows_move' ? 'active' : ''} ><img src={arrows_move}></img></div>
@@ -122,13 +125,16 @@ const Viewer_side = () => {
               <div onClick={color} className={activeNav === '#color' ? 'active' : ''} ><i> <img src={Info}></img></i></div>
           </div>
 
+          <div  id="bar3">
+          <canvas className="box" id="bar2" ref={personInfo2}> {/*div.box 요소에 ref 부여함*/}</canvas>
+          </div>
+          
+
+         <Ply personInfo2={personInfo2} num={num} op_num={op_num} controls_type={controls_type} rotate_type={rotate_type}/>
         
-         <Ply num={num} op_num={op_num} controls_type={controls_type} rotate_type={rotate_type}/>
-
      
      
-
-
+    
 
     
          
