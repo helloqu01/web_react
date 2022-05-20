@@ -24,6 +24,7 @@ function Ply({num, op_num, controls_type,rotate_type, personInfo2}) {
     animate();
 
 
+
      function init() {
    
       camera = new THREE.PerspectiveCamera(
@@ -34,6 +35,7 @@ function Ply({num, op_num, controls_type,rotate_type, personInfo2}) {
       );
 
       camera.position.set(75, 20, 0);
+
       scene = new THREE.Scene();
       scene.background = new THREE.Color(0xffffff);
 
@@ -58,7 +60,6 @@ function Ply({num, op_num, controls_type,rotate_type, personInfo2}) {
           clearcoat: 1.0,
           clearcoatRoughness: 0.25
       })
-        console.log(num);
         var mesh = new THREE.Mesh(geometry, material);
         mesh.rotateX(-Math.PI / 2)
         scene.add(mesh)
@@ -114,6 +115,7 @@ function Ply({num, op_num, controls_type,rotate_type, personInfo2}) {
       renderer.setPixelRatio(window.devicePixelRatio);
       renderer.setSize(window.innerWidth, window.innerHeight);
       
+      // renderer.setAnimationLoop(animate);
       // document.addEventListener("DOMContentLoaded", () => {
       //   var canvas1Ref =personInfo.current;
       //   canvas1Ref.appendChild(renderer.domElement);
@@ -146,17 +148,10 @@ function Ply({num, op_num, controls_type,rotate_type, personInfo2}) {
     
     function animate() {
       requestAnimationFrame(animate);
-      render()
+      renderer.render(scene, camera);
     }
-    function update(time) {
-      time *= 0.001; // second unit
-    }
-    function render(time) {
-      renderer.render(scene, camera)
-      update(time)
-    }
-
-
+   
+ 
   //   return (
   //     <>
   //         <div className="box" id="bar1" ref={personInfo}> {/*div.box 요소에 ref 부여함*/}

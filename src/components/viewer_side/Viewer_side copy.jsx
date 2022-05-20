@@ -12,11 +12,7 @@ import eye from '../../icon/Eye.png'
 import EyeSlash from '../../icon/EyeSlash.png'
 import Axios from 'axios';
 import { useEffect} from 'react';
-// import Ply from '../ply/ply'
-import Obj from '../ply/ply_hj'
-//import PlyModel from '../ply/plyModel'
-
-
+import Ply from '../ply/ply'
 import ThreeScene from '../ply/ThreeScene'
 import { useRef } from 'react';
 import html2canvas from 'html2canvas'
@@ -44,7 +40,6 @@ const Viewer_side = () => {
 
   const [rotate_type, setrotate_type] = useState("0")
 
-  const [is_wire, set_wireframe] = useState(false)
 
   function set_rotate_type() {
     if(controls_type == "0"){
@@ -77,20 +72,9 @@ const Viewer_side = () => {
         setNum(false);
         
         
-      };     
+      };
+      
   }
-
-  function SetWireFram(){
-    if(is_wire == false) {
-      setActiveNav('#wire');
-      set_wireframe(true);
-    }
-    else {
-      setActiveNav('#wire');
-      set_wireframe(false);
-    }
-  }
-
 
   function toggleImg() {
     if(document.getElementById("range").value =="10"){
@@ -127,27 +111,35 @@ const Viewer_side = () => {
       
   };
 
+
+
+  
+
   return (
+
     <div className='container'id="container">
       <div className="l_container">
           <div className='bar-container'>
               <div onClick={set_controls_type} className={activeNav === '#arrows_move' ? 'active' : ''} ><img src={arrows_move}></img></div>
               <div onClick={set_rotate_type} className={activeNav === '#ArrowCounterClockwise' ? 'active' : ''}><i> <img src={ArrowCounterClockwise}></img></i></div>
-              <div onClick={() => setActiveNav('#zoom_In')} className={activeNav === '#zoom_In' ? 'active' : ''}><i> <img src={zoom_In}></img></i></div>
-              <div onClick={() => setActiveNav('#research')} className={activeNav === '#research' ? 'active' : ''}><i><img src={research}></img></i></div>
+              <div  onClick={() => setActiveNav('#zoom_In')} className={activeNav === '#zoom_In' ? 'active' : ''}><i> <img src={zoom_In}></img></i></div>
+              <div  onClick={() => setActiveNav('#research')} className={activeNav === '#research' ? 'active' : ''}><i><img src={research}></img></i></div>
               <div onClick={() => setActiveNav('#Info')} className={activeNav === '#Info' ? 'active' : ''} ><i> <img src={Info}></img></i></div>
-              <div onClick = {color} className={activeNav === '#color' ? 'active' : ''} ><i> <img src={Info}></img></i></div>
-              <div onClick = {SetWireFram }className={activeNav === '#wire' ? 'active' : ''}><i> <img src={zoom_In}></img></i></div>
+              <div onClick={color} className={activeNav === '#color' ? 'active' : ''} ><i> <img src={Info}></img></i></div>
           </div>
 
-          {/* <canvas className="box" id="bar2" ref={personInfo2}> </canvas> */}
+          <div  id="bar3">
+          <canvas className="box" id="bar2" ref={personInfo2}> {/*div.box 요소에 ref 부여함*/}</canvas>
+          </div>
+          
 
-          <Obj op_num={op_num} is_vertex ={num} is_wire ={is_wire}/>
+    <Ply personInfo2={personInfo2}  num={num} op_num={op_num} controls_type={controls_type} rotate_type={rotate_type}/>
          
-           {/* <PlyModel />   */}
-         {/* <Ply personInfo2={personInfo2} num={num} op_num={op_num} controls_type={controls_type} rotate_type={rotate_type}/> */}
-        
      
+     
+    
+      {/* <ThreeScene/> */}
+    
          
         
       </div>
