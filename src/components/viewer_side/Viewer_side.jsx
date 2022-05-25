@@ -16,6 +16,8 @@ import { useEffect} from 'react';
 import Obj from '../ply/ply_hj'
 //import PlyModel from '../ply/plyModel'
 
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { DragControls } from 'three/examples/jsm/controls/DragControls'
 
 import ThreeScene from '../ply/ThreeScene'
 import { useRef } from 'react';
@@ -60,6 +62,7 @@ const Viewer_side = () => {
     if(controls_type == false){
       setActiveNav('#arrows_move');
       setcontrols_type(true);
+      
     }else{
       setActiveNav('#arrows_move');
       setcontrols_type(false);
@@ -137,12 +140,12 @@ const Viewer_side = () => {
               <div onClick={() => setActiveNav('#research')} className={activeNav === '#research' ? 'active' : ''}><i><img src={research}></img></i></div>
               <div onClick={() => setActiveNav('#Info')} className={activeNav === '#Info' ? 'active' : ''} ><i> <img src={Info}></img></i></div>
               <div onClick = {color} className={activeNav === '#color' ? 'active' : ''} ><i> <img src={Info}></img></i></div>
-              <div onClick = {SetWireFram }className={activeNav === '#wire' ? 'active' : ''}><i> <img src={zoom_In}></img></i></div>
+              {/* <div onClick = {SetWireFram }className={activeNav === '#wire' ? 'active' : ''}><i> <img src={zoom_In}></img></i></div> */}
           </div>
 
           {/* <canvas className="box" id="bar2" ref={personInfo2}> </canvas> */}
 
-          <Obj op_num={op_num} is_vertex ={num} is_wire ={is_wire}/>
+          <Obj op_num={op_num} is_vertex ={num} is_wire ={is_wire} controls_type={controls_type} rotate_type={rotate_type}/>
          
            {/* <PlyModel />   */}
          {/* <Ply personInfo2={personInfo2} num={num} op_num={op_num} controls_type={controls_type} rotate_type={rotate_type}/> */}

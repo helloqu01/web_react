@@ -18,10 +18,12 @@ class Obj extends Component {
     this.state = { 
       op_num: props.op_num,
       vertex : props.is_vertex,
-      is_wire: props.is_wire
+      is_wire: props.is_wire,
+      controls_type: props.controls_type,
+      rotate_type: props.rotate_type,
     }
     
-    console.log("Value: " + props.op_num +", "+props.is_vertex+", " +props.is_wire);
+    console.log("Value: " + props.op_num +", "+props.is_vertex+", " +props.is_wire+", "+props.controls_type+", "+props.rotate_type);
   }
 
   componentDidMount() {
@@ -43,12 +45,36 @@ class Obj extends Component {
 
 
 
+    // if(this.props.rotate_type == "0"){
+    //   const controls = new TransformControls(this.camera, this.renderer.domElement)
+    //   window.addEventListener('dragging-changed', function (event) {
+        
+    //     controls.enabled = !event.value
+    //   })
+    //   // tcontrols.attach(mesh)
+    //   scene.add(controls)
+      
+    //   controls.setMode('rotate');//회전
+     
+    // }else{
+
+    // }
+    if (this.props.controls_type == false){      
+      const controls = new DragControls( [teethmMesh], this.camera, this.renderer.domElement );
+      controls.addEventListener( 'dragstart', function ( event ) {
+        controls.enabled= false
+      } );
+      controls.addEventListener( 'dragend', function ( event ) {
+        controls.enabled= true
+      } );
+      scene.add(controls)
+    }
 
 
 
 
 
-    
+
 
     //Default Loding Manager
     THREE.DefaultLoadingManager.onLoad = () =>{ 
@@ -119,17 +145,24 @@ class Obj extends Component {
       setWireFrame(teethmMesh, this.props.is_wire);
       
     }
+
+  
+
+
     this.renderScene();
     this.frameId = window.requestAnimationFrame(this.animate);
   };
   renderScene = () => {
+
+      
+
     if (this.renderer) this.renderer.render(scene, this.camera);
   };
 
   render() {
     return (
       <div
-        style={{ width: "800px", height: "800px" }}
+        // style={{ width: "800px", height: "800px" }}
         ref={
           mount => {
             this.mount = mount;            
@@ -138,6 +171,7 @@ class Obj extends Component {
     );
   }
 }
+
 
 
 function setOpacity(obj, opacity) {
