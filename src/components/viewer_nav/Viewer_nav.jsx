@@ -5,7 +5,7 @@ import case_icon from '../../icon/case_icon.png'
 import download_icon from '../../icon/download_icon.png'
 import link_icon from '../../icon/link_icon.png'
 import link_icon2 from '../../icon/info_2.png'
-
+import { Link } from 'react-router-dom';
 import ClipboardText from '../../icon/ClipboardText.png'
 import Modal from './Modal'
 import { useState } from 'react'
@@ -34,9 +34,9 @@ const Viewer_nav = () => {
 
 
   return (
-    <nav>
+    <div  className='nav2'>
          <div className='left-container'>
-            <div className='back_icon'><i> <img src={arrow_Button}></img></i></div>
+            <div className='back_icon'><Link   to={"/"}><i> <img src={arrow_Button}></img></i></Link></div>
             <div className='case_name'>Case's name</div>
             <div className='form_name'>form only</div>
         </div>
@@ -103,7 +103,7 @@ const Viewer_nav = () => {
           </div>
         </Modal>
 
-    </nav>
+    </div>
   )
 }
 

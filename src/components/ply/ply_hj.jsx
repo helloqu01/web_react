@@ -11,7 +11,7 @@ import React from "react";
 //  OBJLoader(THREE);
 var teethmMesh;
 var scene;
-
+var objects = [];
 class Obj extends Component {
   constructor(props) {
     super(props);
@@ -40,35 +40,9 @@ class Obj extends Component {
     this.mount.appendChild(this.renderer.domElement);
   
 
-    const controls = new OrbitControls(this.camera, this.renderer.domElement);
+  
+    
 
-
-
-
-    // if(this.props.rotate_type == "0"){
-    //   const controls = new TransformControls(this.camera, this.renderer.domElement)
-    //   window.addEventListener('dragging-changed', function (event) {
-        
-    //     controls.enabled = !event.value
-    //   })
-    //   // tcontrols.attach(mesh)
-    //   scene.add(controls)
-      
-    //   controls.setMode('rotate');//회전
-     
-    // }else{
-
-    // }
-    if (this.props.controls_type == false){      
-      const controls = new DragControls( [teethmMesh], this.camera, this.renderer.domElement );
-      controls.addEventListener( 'dragstart', function ( event ) {
-        controls.enabled= false
-      } );
-      controls.addEventListener( 'dragend', function ( event ) {
-        controls.enabled= true
-      } );
-      scene.add(controls)
-    }
 
 
 
@@ -99,7 +73,7 @@ class Obj extends Component {
     scene.add(lights[0]);
    
     var loader = new PLYLoader();
-    loader.load("2022-04-07-Test-HD.ply", function(geometry){
+    loader.load("https://inno3d-net-test.s3.ap-northeast-2.amazonaws.com/Data/10/8/upperjaw.ply", function(geometry){
       geometry.computeVertexNormals();
 
       const material = new THREE.MeshLambertMaterial  ({
@@ -121,10 +95,26 @@ class Obj extends Component {
       teethmMesh.scale.set(0.2, 0.2, 0.2);
       
       scene.add(teethmMesh)
-
+ 
+      objects.push( teethmMesh );
     })
 
-  
+    const controls = new OrbitControls(this.camera, this.renderer.domElement);
+    const dragControls = new DragControls( objects, this.camera, this.renderer.domElement );
+    dragControls.deactivate();
+
+    document.getElementById("dragControls").addEventListener("click", function(){
+      dragControls.activate();
+      dragControls.addEventListener( 'dragstart', function () { controls.enabled = false; } );
+      dragControls.addEventListener( 'dragend', function () { controls.enabled = true; } );
+    });
+
+
+    document.getElementById("TransformControls").addEventListener("click", function(){
+      controls.enablePan = false; 
+      controls.enableZoom = false; 
+    });
+
   }
   componentWillUnmount() {
     this.stop();

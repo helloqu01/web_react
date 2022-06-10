@@ -22,14 +22,24 @@ import { DragControls } from 'three/examples/jsm/controls/DragControls'
 import ThreeScene from '../ply/ThreeScene'
 import { useRef } from 'react';
 import html2canvas from 'html2canvas'
-import { Chart } from 'chart.js';
-import zoomPlugin from 'chartjs-plugin-zoom';
-const Viewer_side = () => {
+
+import Viewer_nav from '../viewer_nav/Viewer_nav'
+import { useLocation } from 'react-router-dom';
+
+
+const Viewer_side = ( ) => {
+
+  const location = useLocation();
+  console.log(location)
+  console.log(location.state.content.viewContent)
+
+  const data = location.state.content.viewContent;
+
   const personInfo2 = useRef();
   const [viewContent, setViewContent] = useState([]);
 
   useEffect(()=>{
-    Axios.get('http://localhost:3001/api/get').then((Response)=>{
+    Axios.get('http://3.34.124.62:3001/api/get').then((Response)=>{
       setViewContent(Response.data);
       console.log(Response.data)
     })
@@ -127,15 +137,21 @@ const Viewer_side = () => {
       saveAs(canvas.toDataURL('image/png'),"capture-test.png");
       });
       
-      
+    
   };
 
   return (
     <div className='container'id="container">
+      <Viewer_nav/>
+
+   
+       
+
+
       <div className="l_container">
           <div className='bar-container'>
-              <div onClick={set_controls_type} className={activeNav === '#arrows_move' ? 'active' : ''} ><img src={arrows_move}></img></div>
-              <div onClick={set_rotate_type} className={activeNav === '#ArrowCounterClockwise' ? 'active' : ''}><i> <img src={ArrowCounterClockwise}></img></i></div>
+              <div id="dragControls" onClick={set_controls_type} className={activeNav === '#arrows_move' ? 'active' : ''} ><img src={arrows_move}></img></div>
+              <div id="TransformControls"   onClick={set_rotate_type} className={activeNav === '#ArrowCounterClockwise' ? 'active' : ''}><i> <img src={ArrowCounterClockwise}></img></i></div>
               <div onClick={() => setActiveNav('#zoom_In')} className={activeNav === '#zoom_In' ? 'active' : ''}><i> <img src={zoom_In}></img></i></div>
               <div onClick={() => setActiveNav('#research')} className={activeNav === '#research' ? 'active' : ''}><i><img src={research}></img></i></div>
               <div onClick={() => setActiveNav('#Info')} className={activeNav === '#Info' ? 'active' : ''} ><i> <img src={Info}></img></i></div>
@@ -151,13 +167,13 @@ const Viewer_side = () => {
          {/* <Ply personInfo2={personInfo2} num={num} op_num={op_num} controls_type={controls_type} rotate_type={rotate_type}/> */}
         
      
-         
+      
         
       </div>
 
       <div className='r_container'>
         <div className='side-container'>
-            <div className='data_name'>3D 데이터{viewContent[0]?.name}</div>
+            <div className='data_name'>3D 데이터{viewContent[0]?.id}   {data.idx}</div>
             <div className="bar">
               <button className='eye' onClick={toggleImg}><i><img id="img" src={eye}></img></i></button>
               <input id="range" type="range" min="1" max="10" onClick={SetValue}/>
