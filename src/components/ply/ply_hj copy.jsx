@@ -74,8 +74,8 @@ class Obj extends Component {
     scene.add(lights[0]);
    
     var loader = new PLYLoader();
-    // loader.load("https://inno3d-net-test.s3.ap-northeast-2.amazonaws.com/"+ this.props.path, function(geometry){
-      loader.load("./2022-04-07-Test-HD.ply", function(geometry){
+    loader.load("https://inno3d-net-test.s3.ap-northeast-2.amazonaws.com/"+ this.props.path, function(geometry){
+      // loader.load("./2022-04-07-Test-HD.ply", function(geometry){
       geometry.computeVertexNormals();
 
       const material = new THREE.MeshLambertMaterial  ({
@@ -114,9 +114,8 @@ class Obj extends Component {
 
 
     document.getElementById("TransformControls").addEventListener("click", function(){
-      dragControls.deactivate();
       controls.enablePan = false; 
-      controls.enableZoom = true; 
+      controls.enableZoom = false; 
     });
 
   }

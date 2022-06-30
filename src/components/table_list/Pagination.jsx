@@ -52,13 +52,13 @@ function Pagination({ total, limit, page, setPage }) {
     }
   
     &[disabled] {
-      background: #73685d;
+      background: #818181;
       cursor: revert;
       transform: revert;
     }
   
     &[aria-current] {
-      background: #a39485;
+      background: #c4c4c4;
       font-weight: bold;
       cursor: revert;
       transform: revert;

@@ -89,3 +89,14 @@
       opacity: 1;
     }
   }
+
+  @media all and (max-width: 768px) {
+  .modal > section {
+    max-width:90%;
+    max-height: 76%;
+
+  }
+  .madal {
+    margin: 0.5rem;
+}
+  }

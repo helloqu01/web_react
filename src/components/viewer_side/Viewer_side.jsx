@@ -34,12 +34,15 @@ const Viewer_side = ( ) => {
   console.log(location.state.content.viewContent)
 
   const data = location.state.content.viewContent;
-
+  const [data_info, setdata_info] = useState(data.case_name);
+ 
+  const [data_status, setdata_status] = useState(data.status);
   const personInfo2 = useRef();
   const [viewContent, setViewContent] = useState([]);
 
   useEffect(()=>{
-    Axios.get('http://3.34.124.62:3001/api/get').then((Response)=>{
+    // Axios.get('http://3.35.10.95:3001/api/get').then((Response)=>{
+      Axios.get('http://15.164.100.143/api/get').then((Response)=>{
       setViewContent(Response.data);
       console.log(Response.data)
     })
@@ -51,6 +54,8 @@ const Viewer_side = ( ) => {
   
   const [num, setNum] = useState(true)
   const [op_num, setop_num] = useState("1")
+  
+
 
   const [controls_type, setcontrols_type] = useState(true)
 
@@ -124,25 +129,20 @@ const Viewer_side = ( ) => {
   }
 
 
-  const onDownloadBtn = () => {
-    // dom-to-image
-    // domtoimage
-    //   .toBlob(document.querySelector('body'))
-    //   .then((blob) => {
-    //     // FileSaver
-    //     saveAs(blob, 'card.png');
-    //   });
-    
-    html2canvas(document.querySelector("body")).then(canvas => {
-      saveAs(canvas.toDataURL('image/png'),"capture-test.png");
-      });
-      
-    
-  };
+
+
+
+  function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+  }
+  
+  function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+  }
 
   return (
     <div className='container'id="container">
-      <Viewer_nav/>
+      <Viewer_nav data_info = {data_info} data_status ={data_status}/>
 
    
        
@@ -152,16 +152,16 @@ const Viewer_side = ( ) => {
           <div className='bar-container'>
               <div id="dragControls" onClick={set_controls_type} className={activeNav === '#arrows_move' ? 'active' : ''} ><img src={arrows_move}></img></div>
               <div id="TransformControls"   onClick={set_rotate_type} className={activeNav === '#ArrowCounterClockwise' ? 'active' : ''}><i> <img src={ArrowCounterClockwise}></img></i></div>
-              <div onClick={() => setActiveNav('#zoom_In')} className={activeNav === '#zoom_In' ? 'active' : ''}><i> <img src={zoom_In}></img></i></div>
-              <div onClick={() => setActiveNav('#research')} className={activeNav === '#research' ? 'active' : ''}><i><img src={research}></img></i></div>
-              <div onClick={() => setActiveNav('#Info')} className={activeNav === '#Info' ? 'active' : ''} ><i> <img src={Info}></img></i></div>
+              {/* <div onClick={() => setActiveNav('#zoom_In')} className={activeNav === '#zoom_In' ? 'active' : ''}><i> <img src={zoom_In}></img></i></div> */}
+              {/* <div onClick={() => setActiveNav('#research')} className={activeNav === '#research' ? 'active' : ''}><i><img src={research}></img></i></div> */}
+              {/* <div onClick={() => setActiveNav('#Info')} className={activeNav === '#Info' ? 'active' : ''} ><i> <img src={Info}></img></i></div> */}
               <div onClick = {color} className={activeNav === '#color' ? 'active' : ''} ><i> <img src={Info}></img></i></div>
               {/* <div onClick = {SetWireFram }className={activeNav === '#wire' ? 'active' : ''}><i> <img src={zoom_In}></img></i></div> */}
           </div>
 
           {/* <canvas className="box" id="bar2" ref={personInfo2}> </canvas> */}
 
-          <Obj op_num={op_num} is_vertex ={num} is_wire ={is_wire} controls_type={controls_type} rotate_type={rotate_type}/>
+          <Obj path = {data.path} op_num={op_num} is_vertex ={num} is_wire ={is_wire} controls_type={controls_type} rotate_type={rotate_type}/>
          
            {/* <PlyModel />   */}
          {/* <Ply personInfo2={personInfo2} num={num} op_num={op_num} controls_type={controls_type} rotate_type={rotate_type}/> */}
@@ -173,14 +173,32 @@ const Viewer_side = ( ) => {
 
       <div className='r_container'>
         <div className='side-container'>
-            <div className='data_name'>3D 데이터{viewContent[0]?.id}   {data.idx}</div>
+            {/* <div className='data_name'>{viewContent[0]?.id} {data.name}  {data.path} {data.case_id}</div> */}
+            <div className='data_name'><p>{data.path}</p></div>
             <div className="bar">
               <button className='eye' onClick={toggleImg}><i><img id="img" src={eye}></img></i></button>
-              <input id="range" type="range" min="1" max="10" onClick={SetValue}/>
+              <input className='range' id="range" type="range" min="1" max="10" onClick={SetValue} />
+            </div>
+           
+        </div>
+
+
+
+        {/* <div id="mySidenav" className="sidenav">
+          <div className ="closebtn_div"> <a href="javascript:void(0)" className="closebtn" onClick={closeNav} >X</a></div>
+         
+            <div className='side-container'>
+            <div className='data_name'>3D 데이터{viewContent[0]?.id} {data.name}  {data.path} {data.case_id}</div>
+            <div className="bar">
+              <button className='eye' onClick={toggleImg}><i><img id="img" src={eye}></img></i></button>
+              <input className='range' id="range" type="range" min="1" max="10" onClick={SetValue} />
             </div>
            
         </div>
         <button onClick={onDownloadBtn} id="exportBtn">내보내기</button>
+        </div>
+        <p onClick={openNav} >open</p> */}
+
     </div>
 
     </div>

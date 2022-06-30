@@ -6,7 +6,7 @@ body {
 }
 
 table {
-  border: 1px #a39485 solid;
+  border: 1px #c4c4c4 solid;
   font-size: .9em;
   box-shadow: 0 2px 5px rgba(0,0,0,.25);
   width: 100%;
@@ -23,7 +23,7 @@ th {
 thead {
   font-weight: bold;
   color: #fff;
-  background: #73685d;
+  background: #818181;
 }
   
  td, th {
@@ -37,13 +37,16 @@ thead {
 }
 
 a {
-  color: #73685d;
+  color: #818181;
 }
 .container2{
     padding: 50px;
 }
 
-
+.search{
+  display: flex;
+  justify-content: right;
+}
 
 .pagination {
     
@@ -63,9 +66,9 @@ a {
   }
   
   .pagination a.active {
-    background-color: #73685d;
+    background-color: #818181;
     color: white;
-    border: 1px solid #73685d;
+    border: 1px solid #818181;
   }
   
   .pagination a:hover:not(.active) {background-color: #ddd;}

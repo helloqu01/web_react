@@ -104,3 +104,50 @@
 .madal{
     margin: 2.5rem;
 }
+@media all and (max-width: 768px) {
+
+.case_name{
+    font-size: 20px;
+}
+.form_name{
+    font-size: 12px;
+}
+
+.range{
+    width: 100%;
+}
+.r_container {
+    width: 47%;
+    background: none;
+}
+.right-container{
+    padding-right: 0px;
+
+}
+
+.form_name{
+    margin-top: 2px;
+}
+.left-container div{
+    margin-left: 5px;
+}
+
+
+.madal{
+    margin: 0;
+}
+
+.modal_header h3 {
+    font-size: 1rem;
+}
+.blue {
+    font-size: 0.7rem;
+  
+}
+.gray {
+    font-size: 0.7rem;
+}
+.info p {
+    font-size: 0.7rem;
+}
+}

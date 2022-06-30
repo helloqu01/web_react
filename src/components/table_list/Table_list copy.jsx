@@ -16,12 +16,12 @@ import { ko } from "date-fns/esm/locale";
 const Table_list = () => {
   
 
-  const [IP, setIP] = useState("15.164.100.143");
+
 
   const [viewContent, setViewContent] = useState([]);
 
   useEffect(()=>{
-    Axios.get('http://'+IP+':3001/api/get').then((Response)=>{
+    Axios.get('http://3.35.10.95:3001/api/get').then((Response)=>{
       // Axios.get('http://localhost:3001/api/get').then((Response)=>{    
       for(let i = 0; i < Response.data.length; i++  ){
         let a = Response.data[i].status;
@@ -63,7 +63,7 @@ const Table_list = () => {
 
 
   const onChangeSearch = (e) => {
-    Axios.get('http://'+IP+':3001/api/get')
+    Axios.get('http://3.35.10.95:3001/api/get')
     .then((res) => {
       for(let i = 0; i < res.data.length; i++  ){
         let a = res.data[i].status;
@@ -96,9 +96,9 @@ const Table_list = () => {
   const onSearch = (e) => {
     e.preventDefault();
     if (search === null || search === '') { //검색어가 없을 경우 전체 리스트 반환
-    alert("검색어를 넣어주세요");
+    alert("검색어를 넣어주세요1");
     
-    Axios.get('http://'+IP+':3001/api/get')
+    Axios.get('http://3.35.10.95:3001/api/get')
     .then((res) => {
       for(let i = 0; i < res.data.length; i++  ){
         let a = res.data[i].status;
@@ -131,7 +131,7 @@ const Table_list = () => {
         const filterData = viewContent.filter((row) => row.case_name.toString().includes(search))
         if(Array.isArray(filterData) && filterData.length === 0){
           alert("검색 내용이 없습니다.");
-          Axios.get('http://'+IP+':3001/api/get')
+          Axios.get('http://3.35.10.95:3001/api/get')
           .then((res) => {
             for(let i = 0; i < res.data.length; i++  ){
               let a = res.data[i].status;
@@ -166,7 +166,7 @@ const Table_list = () => {
         const filterData = viewContent.filter((row) => row.patient_name.toString().includes(search))
         if(Array.isArray(filterData) && filterData.length === 0){
           alert("검색 내용이 없습니다.");
-          Axios.get('http://'+IP+':3001/api/get')
+          Axios.get('http://3.35.10.95:3001/api/get')
           .then((res) => {
             for(let i = 0; i < res.data.length; i++  ){
               let a = res.data[i].status;
@@ -211,27 +211,22 @@ const Table_list = () => {
 const submitHandler2 = (e) => {
     e.preventDefault();
     // state에 저장한 값을 가져옵니다.
-  // const day_data = {
-  //   startDate :startDate.toISOString().slice(0, 10),
-  //   endDate :endDate.toISOString().slice(0, 10)
-  // }
-  // const retData = Axios.post("http://"+IP+":3001/api/day",  {data:day_data});
- 
-  // console.log(retData);
-    fetch("http://"+IP+":3001/api/day", {
+
+    // axios.post("http://localhost:3001/api/day", day_data).then((res) => console.log(res));
+    fetch("http://3.35.10.95:3001/api/day", {
       method: "POST",
       headers: {
           "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        data: {
-          startDate: startDate.toISOString().slice(0, 10),
-          endDate: endDate.toISOString().slice(0, 10)
-        },
-    }),
+          user: {
+            startDate: startDate.toISOString().slice(0, 10),
+            endDate: endDate.toISOString().slice(0, 10)
+          },
+      }),
     
 
-  }).then(response =>  response.json())
+  }).then(response => response.json())
   .then((viewContent) => {
     setViewContent(viewContent);
   console.log(viewContent);
@@ -251,7 +246,7 @@ const submitHandler2 = (e) => {
       </header>
 
       <label>
-      Number of posts to display per page:&nbsp;
+      Number of posts to display per page :&nbsp;
         <select
           type="number"
           value={limit}
@@ -301,7 +296,7 @@ const submitHandler2 = (e) => {
           <option value="case_name">case name</option>
         </select>
       <form onSubmit={e => onSearch(e)}>
-        <input type="text" value={search} placeholder="search.." onChange={onChangeSearch} />
+        <input type="text" value={search} placeholder="search..." onChange={onChangeSearch} />
         <button type='submit'>search</button>
       </form>
 
@@ -311,10 +306,10 @@ const submitHandler2 = (e) => {
             <thead>
             <tr>
                 <th>ID</th>
-                <th>Patient Name</th>
                 <th>Case Name</th>
+                <th>Patient Name</th>
                 <th>Teeth Info</th>
-                <th>File Name</th>
+                <th>File_name</th>
                 <th>Status</th>
                 <th>Date of Created</th>
                 <th>Date of Scanned </th>
@@ -329,10 +324,10 @@ const submitHandler2 = (e) => {
                 {/* <td>{viewContent.idx}</td> */}
                 <td>{viewContent.id}</td>
                 <td><Link   to={"/Viewer_side"} state={{ content: {viewContent} }} >{viewContent.patient_name}</Link></td>
-                <td><Link   to={"/Viewer_side"} state={{ content: {viewContent} }} >{viewContent.case_name}</Link></td>
+                <td>{viewContent.case_name}</td>
                 <td><Link   to={"/Viewer_side"} state={{ content: {viewContent} }} >{viewContent.tooth_select}</Link></td>
-                <td><Link   to={"/Viewer_side"} state={{ content: {viewContent} }} >{viewContent.file_name.split(".")[0]}</Link></td>
                 {/* <td><Link   to={"/Viewer_side"} state={{ content: {viewContent} }} >{viewContent.case_name.toString().substr(0,1)}</Link></td> */}
+                <td><Link id="status"  to={"/Viewer_side"} state={{ content: {viewContent} }}  >{viewContent.file_name.split(".")[0]}</Link></td>
                 <td><Link id="status"  to={"/Viewer_side"} state={{ content: {viewContent} }}  >{viewContent.status}</Link></td>
                 <td><Link   to={"/Viewer_side"} state={{ content: {viewContent} }} >{new Date(viewContent.date_created).toISOString().slice(0, 10)}</Link></td>
                 <td><Link   to={"/Viewer_side"} state={{ content: {viewContent} }} >{new Date(viewContent.date_upload).toISOString().slice(0, 10)}</Link></td>

@@ -5,13 +5,17 @@ import case_icon from '../../icon/case_icon.png'
 import download_icon from '../../icon/download_icon.png'
 import link_icon from '../../icon/link_icon.png'
 import link_icon2 from '../../icon/info_2.png'
+import camera from '../../icon/camera.png'
 import { Link } from 'react-router-dom';
 import ClipboardText from '../../icon/ClipboardText.png'
 import Modal from './Modal'
 import { useState } from 'react'
+import html2canvas from 'html2canvas'
+import { saveAs } from 'file-saver';
 
-const Viewer_nav = () => {
-
+const Viewer_nav = (data_info) => {
+  
+console.log("nav:"+data_info.data_info2);
   // useState를 사용하여 open상태를 변경한다. (open일때 true로 만들어 열리는 방식)
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -32,15 +36,22 @@ const Viewer_nav = () => {
       setModalOpen_2(false);
     };
 
+    const onDownloadBtn = () => {
+       html2canvas(document.querySelector("body")).then(canvas => {
+        saveAs(canvas.toDataURL('image/png'),"capture-test.png");
+        });
+    };
 
   return (
+    
     <div  className='nav2'>
          <div className='left-container'>
             <div className='back_icon'><Link   to={"/"}><i> <img src={arrow_Button}></img></i></Link></div>
-            <div className='case_name'>Case's name</div>
-            <div className='form_name'>form only</div>
+            <div className='case_name'>{data_info.data_info}</div>
+            <div className='form_name'>{data_info.data_status}</div>
         </div>
         <div className='right-container'>
+            <div className='camera' onClick={onDownloadBtn}><i><img src={camera}></img></i></div>
             <div className='download_icon' onClick={openModal}><i><img src={download_icon}></img></i></div>
             <div className='case_icon' onClick={openModal_2} ><i> <img src={case_icon}></img></i></div>
             <div className='link_icon'><i> <img src={link_icon}></img></i></div>
@@ -96,8 +107,8 @@ const Viewer_nav = () => {
             
             <div className="info_r">
               <div className="info">
-                <img src={ClipboardText}></img>
-                <img src={link_icon2}></img><p>현재 폼 정보 없음</p>
+                {/* <img src={ClipboardText}></img>
+                <img src={link_icon2}></img><p>현재 폼 정보 없음</p> */}
               </div>
             </div>
           </div>
